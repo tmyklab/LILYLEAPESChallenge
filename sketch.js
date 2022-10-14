@@ -39,41 +39,17 @@ function draw() {
 	
 	// プレイ画面
 	if(screenNo == 2){
-		// プレイヤーの更新
-		// プレイヤーの描画
-		circle(300, windowHeight - playerY, 50);
-		if(divedFlg){
-			imageMode(CENTER);
-			image(diveImg, 300, windowHeight - playerY);
-		}else{
-			imageMode(CENTER);
-			image(jumpImg, 300, windowHeight - playerY);
-		}
-		// プレイヤーの座標更新
-		playerY = playerY + playerSpeedY;
-		// プレイヤーの速度更新
-		playerSpeedY = playerSpeedY - difficulty * 0.03;
-		// ドラム当たり判定
-		var drumHitFlg = false;
-		for(var i = 0; i < drumX.length; i++){
-			if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300)drumHitFlg = true;
-		}
-		if(playerY < 100 && playerY > 90 && drumHitFlg){
-			playerSpeedY = 4;
-			divedFlg = false;
-		}
-		
 		// ドラムの更新
 		for(var i = 0; i < drumX.length; i++){
 			// ドラムの描画
 			if(drumMovable[i] == false){
-				circle(drumX[i], windowHeight - 100, 50);
-				rect(drumX[i], windowHeight - 100, drumSize[i], 50);
+				// circle(drumX[i], windowHeight - 100, 50);
+				// rect(drumX[i], windowHeight - 100, drumSize[i], 50);
 				imageMode(CORNER);
 				image(drumImg, drumX[i], windowHeight - 100, drumSize[i], 270 * drumSize[i] / 370);
 			}else{
-				circle(drumX[i] + 60 * sin(tick/70), windowHeight - 100, 50);
-				rect(drumX[i] + 60 * sin(tick/70), windowHeight - 100, drumSize[i], 50);
+				// circle(drumX[i] + 60 * sin(tick/70), windowHeight - 100, 50);
+				// rect(drumX[i] + 60 * sin(tick/70), windowHeight - 100, drumSize[i], 50);
 				imageMode(CORNER);
 				image(drumImg, drumX[i] + 60 * sin(tick/70), windowHeight - 100, drumSize[i], 270 * drumSize[i] / 370);
 			}
@@ -98,6 +74,30 @@ function draw() {
 			}
 		}
 		drumXmax = drumXmax - speedX * difficulty;
+		
+		// プレイヤーの更新
+		// プレイヤーの描画
+		// circle(300, windowHeight - playerY, 50);
+		if(divedFlg){
+			imageMode(CENTER);
+			image(diveImg, 300, windowHeight - playerY);
+		}else{
+			imageMode(CENTER);
+			image(jumpImg, 300, windowHeight - playerY);
+		}
+		// プレイヤーの座標更新
+		playerY = playerY + playerSpeedY;
+		// プレイヤーの速度更新
+		playerSpeedY = playerSpeedY - difficulty * 0.03;
+		// ドラム当たり判定
+		var drumHitFlg = false;
+		for(var i = 0; i < drumX.length; i++){
+			if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300)drumHitFlg = true;
+		}
+		if(playerY < 100 && playerY > 90 && drumHitFlg){
+			playerSpeedY = 4;
+			divedFlg = false;
+		}
 		
 		// 死亡判定
 		if(playerY < 0)screenNo = 3;
