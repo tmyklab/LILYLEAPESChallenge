@@ -43,8 +43,10 @@ function draw() {
 		// プレイヤーの描画
 		circle(300, windowHeight - playerY, 50);
 		if(divedFlg){
+			imageMode(CENTER);
 			image(diveImg, 300, windowHeight - playerY);
 		}else{
+			imageMode(CENTER);
 			image(jumpImg, 300, windowHeight - playerY);
 		}
 		// プレイヤーの座標更新
