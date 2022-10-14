@@ -16,6 +16,8 @@ var playerSpeedY = 0;
 var divedFlg = false;
 
 function preload() {
+	titleImg = loadImage('assets/title.png');
+	
 	drumImg = loadImage('assets/drum.png');
 	diveImg = loadImage('assets/dive.png');
 	jumpImg = loadImage('assets/jump.png');
@@ -33,9 +35,12 @@ function draw() {
 	
 	// スタート画面
 	if(screenNo == 1){
+		imageMode(CENTER);
+		image(titleImg, windowWidth/2, windowHeight/2);
+		fill('#000000');
 		textAlign(CENTER);
 		textSize(32);
-		text('START TO CLICK',windowWidth/2, windowHeight/2);
+		text('START TO CLICK',windowWidth/2, windowHeight/2 + 400);
 	}
 	
 	// プレイ画面
@@ -116,11 +121,12 @@ function draw() {
 		fill('#ffffff');
 		textAlign(CENTER, CENTER);
 		textSize(32);
-		text('SCORE: ' +score, windowWidth - 200, 50);
+		text('SCORE: ' +score, windowWidth - 160, 70);
 	}
 	
 	// リザルト画面
 	if(screenNo == 3){
+		fill('#000000');
 		textAlign(CENTER);
 		textSize(32);
 		text('SCORE:' + score,windowWidth/2, windowHeight/2);
