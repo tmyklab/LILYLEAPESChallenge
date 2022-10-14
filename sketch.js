@@ -34,14 +34,14 @@ function setup() {
 
 function draw() {
 	background('#d1fafb');
-	var bgX = 1;
-	var bgY = 1;
+	var bgX = 0;
 	while(bgX * 100 < windowWidth){
+		bgY = 0
 		while(bgY * 100 < windowHeight){
 			fill('#ffffff');
 			noStroke();
 			circle(bgX * 100, bgY * 100, 50);
-			bgY = bgY +1;
+			bgY = bgY + 1;
 		}
 		bgX = bgX + 1;
 	}
