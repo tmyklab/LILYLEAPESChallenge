@@ -69,9 +69,13 @@ function draw() {
 			if(drumMovable[i] == false){
 				circle(drumX[i], windowHeight - 100, 50);
 				rect(drumX[i], windowHeight - 100, drumSize[i], 50);
+				imageMode(CORNER);
+				image(drumImg, drumX[i], windowHeight - 100, drumSize[i], 270 * drumSize[i] / 370);
 			}else{
 				circle(drumX[i] + 60 * sin(tick/70), windowHeight - 100, 50);
 				rect(drumX[i] + 60 * sin(tick/70), windowHeight - 100, drumSize[i], 50);
+				imageMode(CORNER);
+				image(drumImg, drumX[i] + 60 * sin(tick/70), windowHeight - 100, drumSize[i], 270 * drumSize[i] / 370);
 			}
 			
 			// ドラムの座標更新
