@@ -20,6 +20,7 @@ function preload() {
 	diveImg = loadImage('assets/dive.png');
 	jumpImg = loadImage('assets/jump.png');
 	UpperRightImg = loadImage('assets/UpperRight.png');
+	
 }
 
 function setup() {
@@ -28,7 +29,7 @@ function setup() {
 }
 
 function draw() {
-	background('#eeeeee');
+	background('#b1f7fb');
 	
 	// スタート画面
 	if(screenNo == 1){
@@ -109,7 +110,10 @@ function draw() {
 		if(difficulty < 4)difficulty = difficulty + 0.0003;
 		
 		// スコア計上
+		imageMode(CENTER);
+		image(UpperRightImg, windowWidth - 100, 116, 400, 240 * 400 / 900);
 		score = score + 1;
+		fill('#ffffff');
 		textAlign(RIGHT);
 		textSize(32);
 		text('SCORE: ' +score,windowWidth - 100, 100);
