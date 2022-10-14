@@ -17,7 +17,8 @@ var divedFlg = false;
 
 function preload() {
 	titleImg = loadImage('assets/title.png');
-	
+	startImg = loadImage('assets/start.png');
+	guysImg = loadImage('assets/takepiro_bye3.png');
 	drumImg = loadImage('assets/drum.png');
 	diveImg = loadImage('assets/dive.png');
 	jumpImg = loadImage('assets/jump.png');
@@ -36,11 +37,13 @@ function draw() {
 	// スタート画面
 	if(screenNo == 1){
 		imageMode(CENTER);
+		image(guysImg, windowWidth/2 - 400, windowHeight/2);
 		image(titleImg, windowWidth/2, windowHeight/2);
-		fill('#000000');
-		textAlign(CENTER);
-		textSize(32);
-		text('START TO CLICK',windowWidth/2, windowHeight/2 + 400);
+		image(startImg, windowWidth/2, windowHeight/2 + 200);
+		//fill('#000000');
+		//textAlign(CENTER);
+		//textSize(32);
+		//text('START TO CLICK',windowWidth/2, windowHeight/2 + 400);
 	}
 	
 	// プレイ画面
