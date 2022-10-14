@@ -135,9 +135,9 @@ function draw() {
 		textStyle(BOLD);
 		textSize(32);
 		text('SCORE:' + score,windowWidth/2, windowHeight/2);
-		fill('#ffffff');
-		text('SCORE:' + score,windowWidth/2, windowHeight/2);
-		text('RESTART TO CLICK',windowWidth/2, windowHeight/2 + 300);
+		//fill('#ffffff');
+		//text('SCORE:' + score,windowWidth/2, windowHeight/2);
+		//text('RESTART TO CLICK',windowWidth/2, windowHeight/2 + 300);
 		imageMode(CENTER);
 		image(guysImg, windowWidth/2 - 400, windowHeight/2);
 		image(restartImg, windowWidth/2, windowHeight/2 + 200);
