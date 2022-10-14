@@ -29,7 +29,7 @@ function setup() {
 }
 
 function draw() {
-	background('#b1f7fb');
+	background('#c1f7fb');
 	
 	// スタート画面
 	if(screenNo == 1){
