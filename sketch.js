@@ -34,6 +34,17 @@ function setup() {
 
 function draw() {
 	background('#d1fafb');
+	var bgX = 1;
+	var bgY = 1;
+	while(bgX * 100 < windowWidth){
+		while(bgY * 100 < windowHeight){
+			fill('#ffffff');
+			noStroke();
+			circle(bgX, bgY, 50);
+			bgY = bgY +1;
+		}
+		bgX = bgX + 1;
+	}
 	
 	// スタート画面
 	if(screenNo == 1){
