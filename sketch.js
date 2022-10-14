@@ -130,7 +130,7 @@ function draw() {
 	
 	// リザルト画面
 	if(screenNo == 3){
-		fill('#ec8ee6');
+		fill('#cccccc');
 		textAlign(CENTER);
 		textStyle(BOLD);
 		textSize(32);
