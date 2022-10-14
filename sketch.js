@@ -114,7 +114,7 @@ function draw() {
 		image(UpperRightImg, windowWidth - 140, 70, 400, 240 * 400 / 900);
 		score = score + 1;
 		fill('#ffffff');
-		textAlign(RIGHT);
+		textAlign(CENTER, CENTER);
 		textSize(32);
 		text('SCORE: ' +score,windowWidth - 100, 100);
 	}
