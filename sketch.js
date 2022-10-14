@@ -111,7 +111,7 @@ function draw() {
 		
 		// スコア計上
 		imageMode(CENTER);
-		image(UpperRightImg, windowWidth - 100, 116, 400, 240 * 400 / 900);
+		image(UpperRightImg, windowWidth - 120, 90, 400, 240 * 400 / 900);
 		score = score + 1;
 		fill('#ffffff');
 		textAlign(RIGHT);
