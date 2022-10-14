@@ -40,7 +40,7 @@ function draw() {
 		while(bgY * 100 < windowHeight){
 			fill('#ffffff');
 			noStroke();
-			circle(bgX, bgY, 50);
+			circle(bgX * 100, bgY * 100, 50);
 			bgY = bgY +1;
 		}
 		bgX = bgX + 1;
