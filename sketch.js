@@ -18,6 +18,7 @@ var divedFlg = false;
 function preload() {
 	titleImg = loadImage('assets/title.png');
 	startImg = loadImage('assets/start.png');
+	restartImg = loadImage('assets/restart.png');
 	guysImg = loadImage('assets/takepiro_bye3.png');
 	drumImg = loadImage('assets/drum.png');
 	diveImg = loadImage('assets/dive.png');
@@ -32,7 +33,7 @@ function setup() {
 }
 
 function draw() {
-	background('#c1f7fb');
+	background('#d1fafb');
 	
 	// スタート画面
 	if(screenNo == 1){
@@ -129,11 +130,17 @@ function draw() {
 	
 	// リザルト画面
 	if(screenNo == 3){
-		fill('#000000');
+		fill('#ec8ee6');
 		textAlign(CENTER);
+		testStyle(BOLD);
 		textSize(32);
 		text('SCORE:' + score,windowWidth/2, windowHeight/2);
+		fill('#ffffff');
+		text('SCORE:' + score,windowWidth/2, windowHeight/2);
 		text('RESTART TO CLICK',windowWidth/2, windowHeight/2 + 300);
+		imageMode(CENTER);
+		image(guysImg, windowWidth/2 - 400, windowHeight/2);
+		image(restartImg, windowWidth/2, windowHeight/2 + 200);
 	}
 }
 
