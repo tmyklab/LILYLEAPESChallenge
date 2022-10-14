@@ -34,20 +34,17 @@ function setup() {
 
 function draw() {
 	background('#d1fafb');
-	var bgX = 0;
-	while(bgX * 100 < windowWidth){
-		bgY = 0
+	
+	// スタート画面
+	if(screenNo == 1){
+		bgX = 1;
+		bgY = 1;
 		while(bgY * 100 < windowHeight){
 			fill('#ffffff');
 			noStroke();
 			circle(bgX * 100, bgY * 100, 50);
 			bgY = bgY + 1;
 		}
-		bgX = bgX + 1;
-	}
-	
-	// スタート画面
-	if(screenNo == 1){
 		imageMode(CENTER);
 		image(guysImg, windowWidth/2 - 400, windowHeight/2);
 		image(titleImg, windowWidth/2, windowHeight/2);
@@ -141,6 +138,15 @@ function draw() {
 	
 	// リザルト画面
 	if(screenNo == 3){
+		bgX = 1;
+		bgY = 1;
+		while(bgY * 100 < windowHeight){
+			fill('#ffffff');
+			noStroke();
+			circle(bgX * 100, bgY * 100, 50);
+			bgY = bgY + 1;
+		}
+		
 		fill('#cccccc');
 		textAlign(CENTER);
 		textStyle(BOLD);
