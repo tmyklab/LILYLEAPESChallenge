@@ -116,7 +116,7 @@ function draw() {
 		fill('#ffffff');
 		textAlign(CENTER, CENTER);
 		textSize(32);
-		text('SCORE: ' +score,windowWidth - 100, 100);
+		text('SCORE: ' +score, windowWidth - 200, 50);
 	}
 	
 	// リザルト画面
