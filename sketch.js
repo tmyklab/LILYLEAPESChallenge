@@ -132,7 +132,7 @@ function draw() {
 	if(screenNo == 3){
 		fill('#ec8ee6');
 		textAlign(CENTER);
-		testStyle(BOLD);
+		textStyle(BOLD);
 		textSize(32);
 		text('SCORE:' + score,windowWidth/2, windowHeight/2);
 		fill('#ffffff');
