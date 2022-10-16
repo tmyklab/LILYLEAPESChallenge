@@ -241,7 +241,7 @@ function mousePressed() {
 	// 再開
 	if(posedFlg){
 		posedFlg = false;
-		tick = 0;
+		// tick = 0;
 	}
 	
 	// ポーズ処理
@@ -306,7 +306,7 @@ function keyPressed() {
 		// 再開
 		if(posedFlg){
 			posedFlg = false;
-			tick = 0;
+			// tick = 0;
 		}
 	}
 	
