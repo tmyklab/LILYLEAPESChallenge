@@ -1,4 +1,5 @@
 var tick = 0;
+var posedTick = 0;
 // 画面遷移管理 1:スタート画面 2:プレイ画面 3:リザルト画面
 var screenNo = 1;
 // ゲーム共通
@@ -135,6 +136,7 @@ function draw() {
 		
 		// フレームカウント
 		if(!posedFlg)tick = tick + 1;
+		if(posedFlg)posedTick = posedTick + 1;
 		
 		// 難易度更新
 		if(difficulty < 4 && !posedFlg)difficulty = difficulty + 0.0003;
@@ -207,7 +209,7 @@ function mousePressed() {
 	}
 	
 	// ダイブ処理
-	if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
+	if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg && posedTick == 0){
 		playerSpeedY = 0;
 		divedFlg = true;
 		if(tick > 10)diveSound.play();
@@ -242,6 +244,7 @@ function mousePressed() {
 	if(posedFlg){
 		posedFlg = false;
 		// tick = 0;
+		posedTick = 0;
 	}
 	
 	// ポーズ処理
@@ -272,7 +275,7 @@ function keyPressed() {
 		}
 		
 		// ダイブ処理
-		if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
+		if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg && posedTick == 0){
 			playerSpeedY = 0;
 			divedFlg = true;
 			if(tick > 10)diveSound.play();
@@ -307,6 +310,7 @@ function keyPressed() {
 		if(posedFlg){
 			posedFlg = false;
 			// tick = 0;
+			posedTick = 0;
 		}
 	}
 	
