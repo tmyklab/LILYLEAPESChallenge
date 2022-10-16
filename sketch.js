@@ -15,6 +15,8 @@ var speedX = 2;
 var playerY = 250;
 var playerSpeedY = 0;
 var divedFlg = false;
+// 効果音制御
+var jumpSoundLife = 20;
 
 function preload() {
 	titleImg = loadImage('assets/title.png');
@@ -25,7 +27,10 @@ function preload() {
 	diveImg = loadImage('assets/dive.png');
 	jumpImg = loadImage('assets/jump.png');
 	UpperRightImg = loadImage('assets/UpperRight.png');
-	
+	soundFormats('mp3');
+	diveSound = loadSound('assets/dive_editted.mp3');
+	bDrumSound = loadSound('assets/bigdrum_editted.mp3');
+	mDrumSound = loadSound('assets/minidrum_editted.mp3');
 }
 
 function setup() {
@@ -102,14 +107,27 @@ function draw() {
 		if(!posedFlg)playerSpeedY = playerSpeedY - difficulty * 0.03;
 		// ドラム当たり判定
 		var drumHitFlg = false;
+		var miniDrumFlg = false;
 		for(var i = 0; i < drumX.length; i++){
 			var movedX = 0;
 			if(drumMovable[i])movedX = 60 * sin(tick/70);
-			if(drumX[i] + movedX <= 300 && drumX[i] + movedX + drumSize[i] >= 300)drumHitFlg = true;
+			if(drumX[i] + movedX <= 300 && drumX[i] + movedX + drumSize[i] >= 300){
+				drumHitFlg = true;
+				if(drumSize[i] == 150)miniDrumFlg = true;
+				break;
+			}
 		}
 		if(playerY < 100 && playerY > 90 && drumHitFlg){
 			playerSpeedY = 4;
 			divedFlg = false;
+			if(jumpSoundLife == 0){
+				if(miniDrumFlg){
+					mDrumSound.play();
+				}else{
+					bDrumSound.play();
+				}
+				jumpSoundLife = 20;
+			}
 		}
 		
 		// 死亡判定
@@ -148,6 +166,9 @@ function draw() {
 			text('POSED', windowWidth/2, windowHeight/2);
 			text('CLICK TO RESUME', windowWidth/2, windowHeight/2 + 40);
 		}
+		
+		// 効果音制御
+		if(jumpSoundLife > 0)jumpSoundLife = jumpSoundLife - 1;
 	}
 	
 	// リザルト画面
@@ -182,26 +203,46 @@ function mousePressed() {
 		playerY = 250;
 		playerSpeedY = 0;
 		divedFlg = false;
+		tick = 0;
 	}
 	
 	// ダイブ処理
 	if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
 		playerSpeedY = 0;
 		divedFlg = true;
+		if(tick > 10)diveSound.play();
 	}
 	
 	// 大ジャンプ処理
 	var drumHitFlg = false;
+	var miniDrumFlg = false;
 	for(var i = 0; i < drumX.length; i++){
-		if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300 )drumHitFlg = true;
+		var movedX = 0;
+		if(drumMovable[i])movedX = 60 * sin(tick/70);
+		if(drumX[i] + movedX <= 300 && drumX[i] + movedX + drumSize[i] >= 300 ){
+			drumHitFlg = true;
+			if(drumSize[i] == 150)miniDrumFlg = true;
+			break;
+		}
 	}
 	if(playerY >= 100 && playerY < 140 && drumHitFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
 		playerSpeedY = 6;
 		divedFlg = false;
+		if(jumpSoundLife == 0){
+			if(miniDrumFlg){
+				mDrumSound.play();
+			}else{
+				bDrumSound.play();
+			}
+			jumpSoundLife = 20;
+		}
 	}
 	
 	// 再開
-	if(posedFlg)posedFlg = false;
+	if(posedFlg){
+		posedFlg = false;
+		tick = 0;
+	}
 	
 	// ポーズ処理
 	if(screenNo == 2 && mouseX < 80 && mouseY < 80){
@@ -227,26 +268,46 @@ function keyPressed() {
 			playerY = 250;
 			playerSpeedY = 0;
 			divedFlg = false;
+			tick = 0;
 		}
 		
 		// ダイブ処理
 		if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
 			playerSpeedY = 0;
 			divedFlg = true;
+			if(tick > 10)diveSound.play();
 		}
 
 		// 大ジャンプ処理
 		var drumHitFlg = false;
+		var miniDrumFlg = false;
 		for(var i = 0; i < drumX.length; i++){
-			if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300 )drumHitFlg = true;
+			var movedX = 0;
+			if(drumMovable[i])movedX = 60 * sin(tick/70);
+			if(drumX[i] + movedX <= 300 && drumX[i] + movedX + drumSize[i] >= 300 ){
+				drumHitFlg = true;
+				if(drumSize[i] == 150)miniDrumFlg = true;
+				break;
+			}
 		}
 		if(playerY >= 100 && playerY < 140 && drumHitFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
 			playerSpeedY = 6;
 			divedFlg = false;
+			if(jumpSoundLife == 0){
+				if(miniDrumFlg){
+					mDrumSound.play();
+				}else{
+					bDrumSound.play();
+				}
+				jumpSoundLife = 20;
+			}
 		}
 		
 		// 再開
-		if(posedFlg)posedFlg = false;
+		if(posedFlg){
+			posedFlg = false;
+			tick = 0;
+		}
 	}
 	
 	// esc:27 / p:80(ポーズ)が押された
