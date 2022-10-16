@@ -103,7 +103,9 @@ function draw() {
 		// ドラム当たり判定
 		var drumHitFlg = false;
 		for(var i = 0; i < drumX.length; i++){
-			if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300)drumHitFlg = true;
+			var movedX = 0;
+			if(drumMovable[i])movedX = 60 * sin(tick/70);
+			if(drumX[i] + movedX <= 300 && drumX[i] + movedX + drumSize[i] >= 300)drumHitFlg = true;
 		}
 		if(playerY < 100 && playerY > 90 && drumHitFlg){
 			playerSpeedY = 4;
