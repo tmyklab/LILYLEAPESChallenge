@@ -4,6 +4,7 @@ var screenNo = 1;
 // ゲーム共通
 var difficulty = 0.8;
 var score = 0;
+var posedFlg = false;
 // ドラム
 var drumX = [400, 800, 1200, 1600, 2000, 2400, 3000];
 var drumSize = [250, 250, 250, 250, 250, 250, 150];
@@ -65,7 +66,7 @@ function draw() {
 			}
 			
 			// ドラムの座標更新
-			drumX[i] = drumX[i] - speedX * difficulty;
+			if(!posedFlg)drumX[i] = drumX[i] - speedX * difficulty;
 			
 			// ドラムのスポーン・デスポーン
 			if(drumX[i] < -400){
@@ -83,7 +84,7 @@ function draw() {
 				}
 			}
 		}
-		drumXmax = drumXmax - speedX * difficulty;
+		if(!posedFlg)drumXmax = drumXmax - speedX * difficulty;
 		
 		// プレイヤーの更新
 		// プレイヤーの描画
@@ -96,9 +97,9 @@ function draw() {
 			image(jumpImg, 300, windowHeight - playerY);
 		}
 		// プレイヤーの座標更新
-		playerY = playerY + playerSpeedY;
+		if(!posedFlg)playerY = playerY + playerSpeedY;
 		// プレイヤーの速度更新
-		playerSpeedY = playerSpeedY - difficulty * 0.03;
+		if(!posedFlg)playerSpeedY = playerSpeedY - difficulty * 0.03;
 		// ドラム当たり判定
 		var drumHitFlg = false;
 		for(var i = 0; i < drumX.length; i++){
@@ -113,19 +114,38 @@ function draw() {
 		if(playerY < 0)screenNo = 3;
 		
 		// フレームカウント
-		tick = tick + 1;
+		if(!posedFlg)tick = tick + 1;
 		
 		// 難易度更新
-		if(difficulty < 4)difficulty = difficulty + 0.0003;
+		if(difficulty < 4 && !posedFlg)difficulty = difficulty + 0.0003;
 		
 		// スコア計上
 		imageMode(CENTER);
 		image(UpperRightImg, windowWidth - 140, 70, 400, 240 * 400 / 900);
-		score = score + 1;
+		if(!posedFlg)score = score + 1;
 		fill('#ffffff');
 		textAlign(CENTER, CENTER);
 		textSize(32);
 		text('SCORE: ' +score, windowWidth - 160, 65);
+		
+		// ポーズボタン
+		fill('#cccccc');
+		noStroke();
+		rectMode(CENTER);
+		rect(40, 50, 10, 30);
+		rect(60, 50, 10, 30);
+		fill('rgba(0, 0, 0, 0.5)');
+		
+		// ポーズ画面
+		if(posedFlg){
+			rectMode(CORNER);
+			rect(0, 0, windowWidth, windowHeight);
+			fill('#ffffff');
+			textAlign(CENTER, CENTER);
+			textSize(32);
+			text('POSED', windowWidth/2, windowHeight/2);
+			text('CLICK TO RESUME', windowWidth/2, windowHeight/2 + 40);
+		}
 	}
 	
 	// リザルト画面
@@ -142,6 +162,7 @@ function draw() {
 		image(guysImg, windowWidth/2 - 400, windowHeight/2);
 		image(restartImg, windowWidth/2, windowHeight/2 + 200);
 	}
+	console.log(posedFlg);
 }
 
 function mousePressed() {
@@ -163,7 +184,7 @@ function mousePressed() {
 	}
 	
 	// ダイブ処理
-	if(!divedFlg){
+	if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
 		playerSpeedY = 0;
 		divedFlg = true;
 	}
@@ -173,8 +194,18 @@ function mousePressed() {
 	for(var i = 0; i < drumX.length; i++){
 		if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300 )drumHitFlg = true;
 	}
-	if(playerY >= 100 && playerY < 140 && drumHitFlg){
+	if(playerY >= 100 && playerY < 140 && drumHitFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
 		playerSpeedY = 6;
 		divedFlg = false;
 	}
+	
+	// 再開
+	if(posedFlg)posedFlg = false;
+	
+	// ポーズ処理
+	if(screenNo == 2 && mouseX < 80 && mouseY < 80){
+		posedFlg = true;
+	}
+	
+
 }
