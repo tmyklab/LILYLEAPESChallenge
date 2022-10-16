@@ -164,7 +164,6 @@ function draw() {
 		image(guysImg, windowWidth/2 - 400, windowHeight/2);
 		image(restartImg, windowWidth/2, windowHeight/2 + 200);
 	}
-	console.log(posedFlg);
 }
 
 function mousePressed() {
@@ -190,7 +189,7 @@ function mousePressed() {
 		playerSpeedY = 0;
 		divedFlg = true;
 	}
-
+	
 	// 大ジャンプ処理
 	var drumHitFlg = false;
 	for(var i = 0; i < drumX.length; i++){
@@ -208,6 +207,50 @@ function mousePressed() {
 	if(screenNo == 2 && mouseX < 80 && mouseY < 80){
 		posedFlg = true;
 	}
-	
+}
 
+function keyPressed() {
+	// スペースキー:32/エンターキー:13が押された
+	if(keyCode == 32 || keyCode == 13){
+		// ゲームスタート
+		if(screenNo == 1 || screenNo == 3){
+			screenNo = 2;
+			difficulty = 0.8;
+			score = 0;
+			// ドラム
+			drumX = [400, 800, 1200, 1600, 2000, 2400, 3000];
+			drumSize = [250, 250, 250, 250, 250, 250, 150];
+			drumMovable = [false, false, false, false, false, true, false];
+			drumXmax = 3000;
+			speedX = 2;
+			// プレイヤー
+			playerY = 250;
+			playerSpeedY = 0;
+			divedFlg = false;
+		}
+		
+		// ダイブ処理
+		if(!divedFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
+			playerSpeedY = 0;
+			divedFlg = true;
+		}
+
+		// 大ジャンプ処理
+		var drumHitFlg = false;
+		for(var i = 0; i < drumX.length; i++){
+			if(drumX[i] <= 300 && drumX[i] + drumSize[i] >= 300 )drumHitFlg = true;
+		}
+		if(playerY >= 100 && playerY < 140 && drumHitFlg && !(mouseX < 80 && mouseY < 80) && !posedFlg){
+			playerSpeedY = 6;
+			divedFlg = false;
+		}
+		
+		// 再開
+		if(posedFlg)posedFlg = false;
+	}
+	
+	// esc:27 / p:80(ポーズ)が押された
+	if(screenNo == 2 && (keyCode == 27 || keyCode == 80)){
+		posedFlg = true;
+	}
 }
